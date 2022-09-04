@@ -30,6 +30,31 @@ const server = app.listen(port, listening);
 
 // Callback to debug
 function listening() {
-    console.log('server running');
-    console.log(`running on localhost: ${port}`);
+  console.log('server running');
+  console.log(`running on localhost: ${port}`);
+};
+
+// Initialize all route with a callback function
+app.post('/add', callback);
+
+function callback (req, res) {
+  res.send('POST received');
+};
+
+// Callback function to complete GET '/all'
+app.get('/all', sendData);
+
+function sendData(req, res) {
+  res.send(projectData);
+};
+
+// Post Route
+app.post('/weather', addWeather);
+
+function addWeather(req, res) {
+  projectData.temrerature = req.body.temperature;
+  projectData.date = req.body.date;
+  projectData.userResponse = req.body.userResponse;
+  res.end();
+  console.log(projectData);
 };
