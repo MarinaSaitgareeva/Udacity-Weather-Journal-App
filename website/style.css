@@ -1,89 +1,140 @@
-body{
-    background: #fffff8;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-#app{
+/* Remove default margin */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+    background: url(images/cloud.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+}
+
+body {
+    font-family: 'Itim', cursive;
     display: grid;
-    grid-auto-rows: minmax(150px, auto);
-    /* grid-template-columns:  */
-    height:100vh;
-    background: #f23557;
-    color: #f0d43a;
-    justify-content: center;
-    grid-gap: 1em;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 2rem;
 }
 
-.holder{
-
+#title {
+    grid-column: span 2;
+    font-size: 2rem;
+    color: #263238;
+    text-align: center;
+    padding: 1rem;
 }
 
-.entry{
-    background: rgba(59, 74, 107, .4);
+#app {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-family: 'Itim', cursive;
+    font-size: 1.5rem;
+    color: #263238;
+    background: #f5f5f543;
+    border: 1px solid #E7EBED;
+    border-radius: 5%;
+    box-shadow: 5px 5px 11px -3px rgba(0,0,0,0.82);
+    -webkit-box-shadow: 5px 5px 11px -3px rgba(0,0,0,0.82);
+    -moz-box-shadow: 5px 5px 11px -3px rgba(0,0,0,0.82);
+    padding: 2rem;
+    margin-inline: auto;
 }
 
-#entryHolder{
-
+.entry {
+    align-self: center;
+    height: 35rem;
+    width: 35rem;
+    background: url(images/Circle.png);
+    background-size: cover;
+    font-family: 'Itim', cursive;
+    font-size: 1.5rem;
+    color: #263238;
+    text-align: center;
+    padding-top: 12rem;
 }
 
-#date{
-
+.data {
+    margin-bottom: 1rem;
 }
 
-#temp{
-
+#entryHolder {
+    font-size: 1.2rem;
+    padding: 1rem;
+    line-height: 1.5;
 }
 
-#content{
 
+label {
+    display: block;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    padding-left: 1rem;
 }
 
-.headline {
-
-}
-.title{
-
-}
-
-/*  Basic Styling To Override Default For Basic HTML Elements */
-label{
-    display:block;
-    font-size: 27px;
-}
-
-input{
-    display:block;
-    height: 60px;
-    width: 320px;
-    background:#22b2da;
-    color: #f0d43a;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
+input {
+    display: block;
+    height: 3.5rem;
+    width: 20rem;
+    background:#52a8c09c;
+    color: #f4d37ec0;
+    font-size: 1.2rem;
+    font-family: 'Itim', cursive;
     border: none;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 0.5rem;
 }
 
-button{
-    width: 400px;
-    height: 100px;
-    background: #3b4a6b;
-    color: #f0d43a;
-    font-size: 26px;
-    font-family: 'Oswald', sans-serif;
+#generate {
+    width: 15rem;
+    height: 5rem;
+    background: #546997;
+    color: #f4d37ec0;
+    font-size: 1.8rem;
+    font-family: 'Itim', cursive;
     border: none;
-    box-shadow: 2px 4px 5px #444;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 11px -3px rgba(0,0,0,0.82);
+    -webkit-box-shadow: 5px 5px 11px -3px rgba(0,0,0,0.82);
+    -moz-box-shadow: 5px 5px 11px -3px rgba(0,0,0,0.82);
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-inline: auto;
 }
-h1{
-    font-size: 36px;
+
+#generate:hover {
+    background: #022547;
 }
+
 
 textarea{
-    background:#22b2da;
-    color: #f0d43a;
-    font-size: 20px;
-    font-family: 'Oswald', sans-serif;
+    background: #52a8c09c;
+    color: #f4d37ec0;
+    font-size: 1.2rem;
+    font-family: 'Itim', cursive;
+    border: none;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 0.5rem;
 }
+
+
+
+
+
 /* Reset style for HTML element on active to have no border*/
 input:focus,
 select:focus,
@@ -93,19 +144,19 @@ button:focus {
 }
 /* Style for Placeholder Text*/
 ::placeholder { /* Firefox, Chrome, Opera */ 
-    color: #f0d43a; 
-    font-family: 'Oswald', sans-serif;
+    color: #f4d37ec0; 
+    font-family: 'Itim', cursive;
 
 } 
   
 :-ms-input-placeholder { /* Internet Explorer 10-11 */ 
-    color: #f0d43a; 
-    font-family: 'Oswald', sans-serif;
+    color: #f4d37ec0; 
+    font-family: 'Itim', cursive;
 
 } 
   
 ::-ms-input-placeholder { /* Microsoft Edge */ 
-    color: #f0d43a; 
-    font-family: 'Oswald', sans-serif;
+    color: #f4d37ec0; 
+    font-family: 'Itim', cursive;
 
 } 
