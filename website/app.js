@@ -2,7 +2,12 @@
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+months = new Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'),
+curMonth = months[d.getMonth()];
+weekday = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
+dayOfWeek = weekday[d.getDay()];
+
+let newDate = curMonth + ' ' + d.getDate() + ', ' + d.getFullYear() + ' (' + dayOfWeek + ')';
 
 // Personal API Key for OpenWeatherMap API
 
@@ -12,19 +17,19 @@ const addApi = '&units=metric&APPID=';
 
 
 // Event listener to add function to existing HTML DOM element
-document.getElementById('generate').addEventListener('click', performAction);
+document.querySelector('#generate').addEventListener('click', performAction);
 
 
 /* Function called by event listener */
 function performAction(e) {
-  const zipCode = document.getElementById('zip').value;
-  const feelings = document.getElementById('feelings').value;
+  const zipCode = document.querySelector('#zip').value;
+  const feelings = document.querySelector('#feelings').value;
   
   getWeather(baseURL, zipCode, addApi, apiKey)
 
     .then(function(data) {
       // Add data to POST request
-      postWeather('/addWeather', {date: newDate, country: data.sys.country, city: data.name, temp: data.main.temp, condition: data.weather[0].description, feelings: feelings})
+      postWeather('/weatherData', {date: newDate, country: data.sys.country, city: data.name, temp: data.main.temp, condition: data.weather[0].description, feelings: feelings})
 
       .then(function(){
         // call updateUI to update browser content
@@ -74,7 +79,7 @@ const postWeather = async (url = '', data = {}) => {
 
 // Update user interface
 const updateUI = async () => {
-  const req = await fetch('/getWeather');
+  const req = await fetch('/weatherData');
   try {
     // Transform into JSON
     const allData = await req.json();
@@ -82,12 +87,11 @@ const updateUI = async () => {
     
     // Update new entry values
     document.querySelector('.entry').style.opacity = 1;
-    document.querySelector('#date').innerHTML = `Today is ${allData.date}`;
-    document.querySelector('#location').innerHTML = `Location is ${allData.country}, ${allData.city}`;
-    // document.querySelector('#city').innerHTML = `City is ${allData.city}`;
-    document.querySelector('#temp').innerHTML = `Temperature is ${Math.round(allData.temp)} &deg;C`;
-    document.querySelector('#condition').innerHTML = `Condition is ${allData.condition}`;
-    document.querySelector('#content').innerHTML = `My feelings is ${allData.feelings}`;
+    document.querySelector('#date').innerText = `Today is ${allData.date}`;
+    document.querySelector('#location').innerText = `Location is ${allData.country}, ${allData.city}`;
+    document.querySelector('#temp').innerText = `Temperature is ${Math.round(allData.temp)}℃`;
+    document.querySelector('#condition').innerText = `Condition is ${allData.condition}`;
+    document.querySelector('#content').innerText = `My feelings is ${allData.feelings}`;
   }
   catch (error) {
     // appropriately handle the error

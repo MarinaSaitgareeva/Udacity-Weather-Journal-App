@@ -35,12 +35,12 @@ function listening() {
 };
 
 // GET route
-app.get('/getWeather', function(req, res) {
+app.get('/weatherData', function(req, res) {
   res.send(projectData);
 });
 
 // Post Route
-app.post('/addWeather', function(req, res) {
+app.post('/weatherData', function(req, res) {
   projectData = {
     date: req.body.date,
     country: req.body.country,
