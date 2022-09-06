@@ -35,14 +35,20 @@ function listening() {
 };
 
 // GET route
-app.get('/all', function(req, res) {
+app.get('/getWeather', function(req, res) {
   res.send(projectData);
 });
 
 // Post Route
 app.post('/addWeather', function(req, res) {
-  projectData.temp = req.body.temp;
-  projectData.date = req.body.date;
-  projectData.feelings = req.body.feelings;
+  projectData = {
+    date: req.body.date,
+    country: req.body.country,
+    city: req.body.city,
+    temp: req.body.temp,
+    condition: req.body.condition,
+    feelings: req.body.feelings,
+  };
+  console.log(projectData);
   res.send(projectData);
-});
+})

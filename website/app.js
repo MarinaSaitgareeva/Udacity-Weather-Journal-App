@@ -24,7 +24,7 @@ function performAction(e) {
 
     .then(function(data) {
       // Add data to POST request
-      postWeather('/addWeather', {date: newDate, temp: data.main.temp, feelings: feelings})
+      postWeather('/addWeather', {date: newDate, country: data.sys.country, city: data.name, temp: data.main.temp, condition: data.weather[0].description, feelings: feelings})
 
       .then(function(){
         // call updateUI to update browser content
@@ -41,8 +41,7 @@ const getWeather = async (baseURL, zipCode, addApi, apiKey) => {
   try {
     // data equals to the result of fetch function
     const data = await res.json();
-    // console.log(data);
-    // postWeather('/addWeather', data);
+    console.log(data);
     return data;
   } 
   catch (error) {
@@ -54,19 +53,13 @@ const getWeather = async (baseURL, zipCode, addApi, apiKey) => {
 
 /* Function to POST data */
 const postWeather = async (url = '', data = {}) => {
-  // console.log(data);
   const res = await fetch(url, {
-    // origin: '*',
     method: 'POST',
     credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      temp: data.temp,
-      date: data.date,
-      feelings: data.feelings
-    }),
+    body: JSON.stringify(data),
   })
 
   try {
@@ -79,23 +72,25 @@ const postWeather = async (url = '', data = {}) => {
     }
 };
 
-
-/* Function to GET Project Data */
-
 // Update user interface
 const updateUI = async () => {
-  const req = await fetch('/all');
+  const req = await fetch('/getWeather');
   try {
     // Transform into JSON
     const allData = await req.json();
     console.log(allData);
+    
     // Update new entry values
-    document.getElementById('date').innerHTML = allData.date;
-    document.getElementById('temp').innerHTML = Math.round(allData.temp)+ ' degrees';
-    document.getElementById('content').innerHTML = `My feelings is ${allData.feelings}`;
+    document.querySelector('.entry').style.opacity = 1;
+    document.querySelector('#date').innerHTML = `Today is ${allData.date}`;
+    document.querySelector('#location').innerHTML = `Location is ${allData.country}, ${allData.city}`;
+    // document.querySelector('#city').innerHTML = `City is ${allData.city}`;
+    document.querySelector('#temp').innerHTML = `Temperature is ${Math.round(allData.temp)} &deg;C`;
+    document.querySelector('#condition').innerHTML = `Condition is ${allData.condition}`;
+    document.querySelector('#content').innerHTML = `My feelings is ${allData.feelings}`;
   }
   catch (error) {
     // appropriately handle the error
     console.log('error', error);
   }
-};
+}
