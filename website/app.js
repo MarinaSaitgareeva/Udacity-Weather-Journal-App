@@ -7,7 +7,7 @@ curMonth = months[d.getMonth()];
 weekday = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
 dayOfWeek = weekday[d.getDay()];
 
-let newDate = curMonth + ' ' + d.getDate() + ', ' + d.getFullYear() + ' (' + dayOfWeek + ')';
+let newDate = curMonth + ' ' + d.getDate() + ', ' + d.getFullYear().toString().substr(2) + ' (' + dayOfWeek + ')';
 
 // Personal API Key for OpenWeatherMap API
 
